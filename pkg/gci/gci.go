@@ -37,6 +37,7 @@ import (
 type FlagSet struct {
 	LocalFlag       string
 	DoWrite, DoDiff *bool
+	Verbose         *bool
 }
 
 type pkgInfo struct {
@@ -324,7 +325,9 @@ func processSource(filename string, src []byte, out io.Writer, set *FlagSet) err
 	start := bytes.Index(src, importStartFlag)
 	// in case no importStartFlag or importStartFlag exist in the commentFlag
 	if start < 0 {
-		fmt.Printf("skip file %s since no import\n", filename)
+		if *set.Verbose {
+			fmt.Printf("skip file %s since no import\n", filename)
+		}
 		return nil
 	}
 	end := bytes.Index(src[start:], importEndFlag) + start

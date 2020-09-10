@@ -3,14 +3,16 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/daixiang0/gci/pkg/gci"
 	"go/scanner"
 	"os"
+
+	"github.com/daixiang0/gci/pkg/gci"
 )
 
 var (
 	doWrite = flag.Bool("w", false, "doWrite result to (source) file instead of stdout")
 	doDiff  = flag.Bool("d", false, "display diffs instead of rewriting files")
+	verbose = flag.Bool("v", false, "print out verbose warnings")
 
 	localFlag string
 
@@ -43,6 +45,7 @@ func main() {
 		LocalFlag: localFlag,
 		DoWrite:   doWrite,
 		DoDiff:    doDiff,
+		Verbose:   verbose,
 	}
 
 	for _, path := range paths {
